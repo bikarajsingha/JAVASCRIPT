@@ -1,7 +1,5 @@
-var items = document.getElementsByClassName('list-group-item')
+let list = document.getElementsByClassName('new-class')
+list[0].style.fontWeight = 'bold'
 
-items[2].style.backgroundColor = 'green'
-
-for(let i of items){
-    i.style.fontWeight = 'bold'
-}
+let item = document.getElementsByTagName('li')
+item[4].style.backgroundColor = 'pink'
