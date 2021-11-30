@@ -1,75 +1,60 @@
-/*var header = document.querySelector('#main-header')
-header.style.borderBottom = 'solid 4px #ccc'
+let form = document.getElementById('addForm')
+let itemList = document.getElementById('items')
+let filter = document.getElementById('filter')
 
-var input = document.querySelector('input')
-input.value = 'Hello world'
+//form submit event
+form.addEventListener('submit', addItem)
 
-var submit = document.querySelector("input[type='submit']")
-submit.value = 'SEND'
+//Delete event 
+itemList.addEventListener('click', removeItem)
 
-var item = document.querySelector('.list-group-item')
-item.style.color = 'red'
+//Remove item 
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you sure?')){
+            var li = e.target.parentElement
+            itemList.removeChild(li)
+        }
+    }
+}
+//Add item
+function addItem(e){
+    e.preventDefault()
 
-var lastItem = document.querySelector('.list-group-item:last-child')
-lastItem.style.color = 'blue'
+    //Get input value
+    var newItem = document.getElementById('item').value
 
-var secondItem = document.querySelector('.list-group-item:nth-child(2)')
-secondItem.style.color = 'coral'
+    //Create a new li element
+    var li = document.createElement('li')
+    //Add class
+    li.className = 'list-group-item'
+    li.appendChild(document.createTextNode(newItem))
 
-// querySelector //
-var titles = document.querySelectorAll('.title')
-console.log(titles)
-titles[0].textContent = 'hello'*/
+    //Create a new button 
+    var delBtn = document.createElement('button')
+    //Add class
+    delBtn.className = 'btn btn-danger btn-sm float-right delete'
+    delBtn.appendChild(document.createTextNode('X'))
 
-/*let item = document.querySelectorAll('.list-group-item')
-item[1].style.color = 'green'
+    //Append delBtn to li
+    li.appendChild(delBtn)
 
-let oddItems = document.querySelectorAll('.list-group-item:nth-child(odd)')
+    var editBtn = document.createElement('button')
+    editBtn.class = 'btn btn-danger btn-sm float-right delete'
+    editBtn.appendChild(document.createTextNode('E'))
+    li.appendChild(editBtn)
 
-for(let i of oddItems)
-    i.style.backgroundColor = 'green'*/
+    //Append li to list
+    itemList.appendChild(li) 
+}
 
-var itemList = document.querySelector('#items')
-itemList.parentElement.style.backgroundColor = '#f4f4f4'
-
-itemList.children[1].style.backgroundColor = 'yellow'
-
-console.log(itemList.firstChild)
-
-console.log(itemList.firstElementChild)
-itemList.firstElementChild.textContent = 'Hello 1'
-
-console.log(itemList.lastChild)
-
-console.log(itemList.lastElementChild)
-itemList.lastElementChild.textContent = 'Hello 2'
-
-console.log(itemList.nextSibling)
-console.log(itemList.nextElementSibling)
-console.log(itemList.previousSibling)
-itemList.previousElementSibling.style.color = 'green'
-
-let newDiv = document.createElement('div')
-newDiv.className = 'hello'
-newDiv.id = 'helloId'
-newDiv.setAttribute('title', 'hello Div')
-
-var newDivText = document.createTextNode('HELLo World')
-newDiv.appendChild(newDivText)
-
-var container = document.querySelector('header .container')
-var h1 = document.querySelector('header h1')
-
-container.insertBefore(newDiv, h1)
-
-let newp = document.createElement('p')
-let newPText = document.createTextNode('HELLo World')
-newp.appendChild(newPText)
-
-var ul = document.querySelector('ul')
-var li = document.querySelector('li')
-ul.insertBefore(newp, li)
-
-console.log(newp)
+//Add edit button 
+let list = document.querySelectorAll('.list-group-item')
 
 
+for(let i of list){
+    var editBtn = document.createElement('button')
+    editBtn.class = 'btn btn-danger btn-sm float-right delete'
+    editBtn.appendChild(document.createTextNode('E'))
+    i.appendChild(editBtn)
+}
