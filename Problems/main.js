@@ -84,7 +84,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
             let inputName = document.getElementById('name')
             let inputEmail  = document.getElementById('email')
 
-            
+            inputName.value = objDeserialize.name
+            inputEmail.value = objDeserialize.email
 
             let form = document.querySelector('form')
             let item = e.target.parentElement
