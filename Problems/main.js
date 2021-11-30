@@ -12,17 +12,31 @@ function storeLocal(e){
         'name': name,
         'email': email
     }
-    objSerialize = JSON.stringify(obj)
-    localStorage.setItem('objItem', objSerialize)
+    let objSerialize = JSON.stringify(obj)
+    localStorage.setItem('user '+name, objSerialize)
+
+    let objDeserialize = JSON.parse(localStorage.getItem('user '+name))
+    let li = document.createElement('li')
+    
+    li.appendChild(document.createTextNode(objDeserialize.name+' '+objDeserialize.email))
+    
+    let form = document.querySelector('form')
+    form.appendChild(li)
+
 }
 
-function viewStorage(){
-    let obj = JSON.parse(localStorage.getItem('objItem'))
 
-    let p = document.createElement('p')
-    p.appendChild(document.createTextNode(obj.name+' '+obj.email))
-    p.className = 'btn'
-
-    let body = document.querySelector('body')
-    body.appendChild(p)
-}
+window.addEventListener('DOMContentLoaded', (e) => {
+    for(let key in localStorage){
+        let li = document.createElement('li')
+        let objDeserialize = JSON.parse(localStorage[key])
+    
+        if(objDeserialize.name == undefined)
+            break
+    
+        li.appendChild(document.createTextNode(objDeserialize.name+' '+objDeserialize.email))
+    
+        let form = document.querySelector('form')
+        form.appendChild(li)
+    }
+})
