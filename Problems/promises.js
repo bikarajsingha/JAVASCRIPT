@@ -31,14 +31,6 @@ function createPost(post) {
 createPost({title: 'Post three', body: 
 'This is post three'}).then(getPosts).catch(err => console.log(err))
 
-function getLastEditTime(obj){
-    obj['Last Edited'] = Date()
-}
-
-for(let i in posts){
-    getLastEditTime(posts[i])
-}
-
 function deletePost(){
     return new Promise((resolve, reject) => {
         setTimeout(() => {
