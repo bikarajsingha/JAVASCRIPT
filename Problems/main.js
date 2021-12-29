@@ -1,14 +1,11 @@
 let submit = document.querySelector('input[type="submit"]')
-
 let editBtn = document.createElement('button')
-editBtn.appendChild(document.createTextNode('E'))
-
 let delBtn = document.createElement('button')
-delBtn.appendChild(document.createTextNode('X'))
 
-submit.addEventListener('click', storeLocal)
 
-function storeLocal(e){
+submit.addEventListener('click', storeCrud)
+
+function storeCrud(e){
     e.preventDefault();
     
     let name = document.getElementById('name').value
@@ -19,8 +16,34 @@ function storeLocal(e){
         'email': email
     }
     
-    axios.post('https://crudcrud.com/api/57b4ab41bac14b47963a25d21bdf0dad/appointmentData', obj)
+    axios.post('https://crudcrud.com/api/43432d411b934e04badf98754deaeb0f/appointmentData', obj)
      .then(response => console.log(response))
      .catch(err => console.log(err))
 }
 
+/*window.addEventListener('DOMContentLoaded', () => {
+    axios.get('https://crudcrud.com/api/43432d411b934e04badf98754deaeb0f/appointmentData')
+     .then(res => {
+         for(let i of res.data){
+             showNewUserOnScreen(i)
+         }
+     })
+     .catch(err => console.log(err))
+})*/
+showNewUserOnScreen({
+    'name': 'bikaraj',
+    'email': 'bikarajsingha@gmail.com'
+})
+showNewUserOnScreen({
+    'name': 'sunaina',
+    'email': 'sunainasingha@gmail.com'
+})  
+function showNewUserOnScreen(user){  
+    let form = document.querySelector('#users')
+    let childHtml = `<li id=${user.email}>${user.name} ${user.email}
+                        <button onclick=deleteUser('${user.email}')>Edit User</button>
+                        <button onclick=editUserDetails('${user.email}')>Delete User </button>
+                    <li>`
+                    
+    form.innerHTML += childHtml
+}
