@@ -15,13 +15,15 @@ function storeCrud(e){
         'email': email
     }
     
-    axios.post('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData', obj)
-     .then(response => console.log(response))
+    axios.post('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData', obj)
+     .then(response => {
+         showNewUserOnScreen(response.data)
+     })
      .catch(err => console.log(err))
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    axios.get('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData')
+    axios.get('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData')
      .then(res => {
          for(let i of res.data){
              showNewUserOnScreen(i)
@@ -33,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function showNewUserOnScreen(user){  
     let form = document.querySelector('#users')
     let childHtml = `<li id=${user['_id']}>${user.name} ${user.email}
-                        <button onclick="editUser(${user['_id']})">Edit User</button>
+                        <button onclick="editUser(event, '${user['_id']}', '${user.name}', '${user.email}')">Edit User</button>
                         <button onclick="deleteUser(event, '${user['_id']}')">Delete User </button>
                     <li>`
 
@@ -42,9 +44,20 @@ function showNewUserOnScreen(user){
 
 function deleteUser(e, id){
     e.preventDefault()
-    axios.delete('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData/'+id)
+    axios.delete('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData/'+id)
      .then(() => {
          document.getElementById(id).remove()
      })
      .catch(err => console.log(err))
+}
+
+function editUser(e, id, userName, userEmail){
+    e.preventDefault()
+    let nameElement = document.getElementById('name')
+    let emailElement = document.getElementById('email')
+
+    nameElement.value = userName
+    emailElement.value = userEmail
+
+    deleteUser(window.event, id)
 }
