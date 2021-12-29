@@ -1,9 +1,8 @@
 let submit = document.querySelector('input[type="submit"]')
-let editBtn = document.createElement('button')
-let delBtn = document.createElement('button')
 
 
 submit.addEventListener('click', storeCrud)
+
 
 function storeCrud(e){
     e.preventDefault();
@@ -16,13 +15,13 @@ function storeCrud(e){
         'email': email
     }
     
-    axios.post('https://crudcrud.com/api/43432d411b934e04badf98754deaeb0f/appointmentData', obj)
+    axios.post('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData', obj)
      .then(response => console.log(response))
      .catch(err => console.log(err))
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    axios.get('https://crudcrud.com/api/43432d411b934e04badf98754deaeb0f/appointmentData')
+    axios.get('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData')
      .then(res => {
          for(let i of res.data){
              showNewUserOnScreen(i)
@@ -33,10 +32,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function showNewUserOnScreen(user){  
     let form = document.querySelector('#users')
-    let childHtml = `<li id=${user.email}>${user.name} ${user.email}
-                        <button onclick=deleteUser('${user.email}')>Edit User</button>
-                        <button onclick=editUserDetails('${user.email}')>Delete User </button>
+    let childHtml = `<li id=${user['_id']}>${user.name} ${user.email}
+                        <button onclick="editUser(${user['_id']})">Edit User</button>
+                        <button onclick="deleteUser(event, '${user['_id']}')">Delete User </button>
                     <li>`
 
     form.innerHTML += childHtml
+}
+
+function deleteUser(e, id){
+    e.preventDefault()
+    axios.delete('https://crudcrud.com/api/315078620fcc421283d3cb30e278052e/appointmentData/'+id)
+     .then(() => {
+         document.getElementById(id).remove()
+     })
+     .catch(err => console.log(err))
 }
