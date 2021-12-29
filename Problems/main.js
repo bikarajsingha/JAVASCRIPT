@@ -21,7 +21,7 @@ function storeCrud(e){
      .catch(err => console.log(err))
 }
 
-/*window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
     axios.get('https://crudcrud.com/api/43432d411b934e04badf98754deaeb0f/appointmentData')
      .then(res => {
          for(let i of res.data){
@@ -29,21 +29,14 @@ function storeCrud(e){
          }
      })
      .catch(err => console.log(err))
-})*/
-showNewUserOnScreen({
-    'name': 'bikaraj',
-    'email': 'bikarajsingha@gmail.com'
 })
-showNewUserOnScreen({
-    'name': 'sunaina',
-    'email': 'sunainasingha@gmail.com'
-})  
+
 function showNewUserOnScreen(user){  
     let form = document.querySelector('#users')
     let childHtml = `<li id=${user.email}>${user.name} ${user.email}
                         <button onclick=deleteUser('${user.email}')>Edit User</button>
                         <button onclick=editUserDetails('${user.email}')>Delete User </button>
                     <li>`
-                    
+
     form.innerHTML += childHtml
 }
