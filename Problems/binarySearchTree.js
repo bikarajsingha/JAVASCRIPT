@@ -81,8 +81,27 @@ class BST{
         }
         return res
     }
+    min(){
+        let node = this.root
+        while(node.left != null){
+            node = node.left
+        }
+        return node
+    }
+    max(){
+        let node = this.root
+        while(node.right != null){
+            node = node.right
+        }
+        return node
+    }
+
 }
 
 const bTree = new BST()
-
-console.log(bTree.preOrderIterative())
+bTree.insert(50)
+bTree.insert(25)
+bTree.insert(75)
+bTree.insert(100)
+bTree.insert(15)
+console.log(bTree.max())
