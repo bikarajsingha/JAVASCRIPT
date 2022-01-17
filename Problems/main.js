@@ -11,32 +11,33 @@ function storeCrud(e){
     let email = document.getElementById('email').value
     
     let obj = {
-        'name': name,
-        'email': email
+        name: name,
+        email: email
     }
-    
-    axios.post('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData', obj)
+    console.log(obj)
+    axios.post('http://localhost:3000/addnewusers', obj)
      .then(response => {
-         showNewUserOnScreen(response.data)
+        console.log('sent post request')
+        showNewUserOnScreen(response.data)
      })
-     .catch(err => console.log(err))
+     .catch(err => console.log('Post add new user err: ',err))
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    axios.get('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData')
+    axios.get('http://localhost:3000/getusers')
      .then(res => {
          for(let i of res.data){
              showNewUserOnScreen(i)
          }
      })
-     .catch(err => console.log(err))
+     .catch(err => console.log('Show user err: ',err))
 })
 
 function showNewUserOnScreen(user){  
     let form = document.querySelector('#users')
-    let childHtml = `<li id=${user['_id']}>${user.name} ${user.email}
-                        <button onclick="editUser(event, '${user['_id']}', '${user.name}', '${user.email}')">Edit User</button>
-                        <button onclick="deleteUser(event, '${user['_id']}')">Delete User </button>
+    let childHtml = `<li id=${user['id']}>${user.name} ${user.email}
+                        <button onclick="editUser(event, '${user['id']}', '${user.name}', '${user.email}')">Edit User</button>
+                        <button onclick="deleteUser(event, '${user['id']}')">Delete User </button>
                     <li>`
 
     form.innerHTML += childHtml
@@ -44,7 +45,7 @@ function showNewUserOnScreen(user){
 
 function deleteUser(e, id){
     e.preventDefault()
-    axios.delete('https://crudcrud.com/api/90ddb9c608de44ea8b76e1a8c55eeac3/appointmentData/'+id)
+    axios.post('http://localhost:3000/deleteuser/'+id)
      .then(() => {
          document.getElementById(id).remove()
      })
